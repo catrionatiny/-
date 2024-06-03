@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - ตั้งราคาขายก่อนหักภาษี</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เครื่องมือคำนวณภาษี</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f3e4;
+            color: #5c4033;
+            padding: 20px;
+        }
+        h1 {
+            color: #8b5e34;
+            text-align: center;
+        }
+        h2 {
+            color: #8b5e34;
+            margin-top: 0;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #8b5e34;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #d4a373;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #b97a56;
+        }
+        p {
+            margin: 5px 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .section {
+            background-color: #fffaf0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .result {
+            background-color: #f1ebe1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .explanation {
+            background-color: #fff8e6;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+    </style>
+    <script>
+        function calculateProfit() {
+            let cost = parseFloat(document.getElementById('cost').value);
+            let desiredProfitRate = 0.30;  // 30% desired profit rate
+            let vatRate = 0.07;
+            let corporateTaxRate = 0.20;
+
+            // Calculate desired profit amount
+            let desiredProfit = cost * desiredProfitRate;
+
+            // Calculate selling price before VAT
+            let sellingPriceBeforeTax = (cost + desiredProfit) / (1 - corporateTaxRate);
+
+            // Calculate VAT
+            let vatAmount = sellingPriceBeforeTax * vatRate;
+
+            // Calculate final selling price including VAT
+            let finalSellingPrice = sellingPriceBeforeTax + vatAmount;
+
+            document.getElementById('sellingPrice').innerText = finalSellingPrice.toFixed(2) + ' บาท';
+            document.getElementById('explanation').innerHTML = `
+                <strong>คำอธิบายผลลัพธ์:</strong><br>
+                <ul>
+                    <li>ต้นทุนสินค้า: ${cost.toFixed(2)} บาท</li>
+                    <li>กำไรที่ต้องการ: ${desiredProfit.toFixed(2)} บาท (30% ของต้นทุนสินค้า)</li>
+                    <li>ภาษีเงินได้นิติบุคคล (20%): ${sellingPriceBeforeTax.toFixed(2)} บาท</li>
+                    <li>ภาษีมูลค่าเพิ่ม (7%): ${vatAmount.toFixed(2)} บาท</li>
+                    <li>ราคาขายรวม VAT: ${finalSellingPrice.toFixed(2)} บาท</li>
+                </ul>
+                <b>ราคาขายนี้คิดจากต้นทุนสินค้า ${cost.toFixed(2)} บาท เพื่อให้ได้กำไร 30% หลังหักภาษีเงินได้นิติบุคคล 20% และเพิ่มภาษีมูลค่าเพิ่ม 7%</b>
+            `;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>เครื่องมือคำนวณภาษี</h1>
+
+        <div class="section">
+            <h3>คำนวณราคาขายเพื่อให้ได้กำไร 30% หลังหักภาษี</h3>
+            <label for="cost">ต้นทุนสินค้า:</label>
+            <input type="number" id="cost"><br>
+            <button onclick="calculateProfit()">คำนวณราคาขาย</button>
+            <div class="result">
+              <p><b>ราคาขาย : <span id="sellingPrice"></span></b></p>
+            </div>
+            <div class="explanation" id="explanation"></div>
+        </div>
+    </div>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
